@@ -1,6 +1,6 @@
 /* PostgreSQL */
 
-CREATE DATABASE example;
+CREATE DATABASE book_store;
 
 CREATE TABLE authors (
     author_id SERIAL PRIMARY KEY,
