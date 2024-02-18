@@ -6,7 +6,7 @@ CREATE TABLE authors (
     author_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     age SMALLINT NOT NULL,
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE books (
@@ -14,7 +14,7 @@ CREATE TABLE books (
     isbn VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     cant_pages INTEGER,
-    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     author_id INTEGER,
     CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES authors(author_id) ON DELETE CASCADE
 );
