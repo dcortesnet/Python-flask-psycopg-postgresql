@@ -29,16 +29,7 @@ def get_authors():
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM authors")
         results = cursor.fetchall()
-        authors = []
-        for result in results:
-            author = {
-                'author_id': result['author_id'],
-                'name': result['name'],
-                'age': result['age'],
-                'created_at': result['created_at']
-            }
-            authors.append(author)
-        return jsonify({'authors': authors})
+        return jsonify({'authors': results})
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
@@ -58,13 +49,7 @@ def create_author():
         cursor.execute("INSERT INTO authors (name, age) VALUES (%s, %s) RETURNING author_id, name, age, created_at", (name, age))
         connection.commit()
         result = cursor.fetchone()
-        author = {
-            'author_id': result['author_id'],
-            'name': result['name'],
-            'age': result['age'],
-            'created_at': result['created_at']
-        }       
-        return jsonify({'author': author}), 201
+        return jsonify({'author': result}), 201
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
@@ -77,19 +62,8 @@ def get_books():
     try:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM books")
-        results = cursor.fetchall()
-        books = []
-        for result in results:
-            book = {
-                'book_id': result['book_id'],
-                'isbn': result['isbn'],
-                'name': result['name'],
-                'cant_pages': result['cant_pages'],
-                'created_at': result['created_at'],
-                'author_id': result['author_id']
-            }
-            books.append(book)
-        return jsonify({'books': books})
+        results = cursor.fetchall()        
+        return jsonify({'books': results})
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
@@ -115,15 +89,7 @@ def create_book():
         (isbn, name, cant_pages, author_id))
         connection.commit()
         result = cursor.fetchone()
-        book = {
-            'book_id': result['book_id'],
-            'isbn': result['isbn'],
-            'name': result['name'],
-            'cant_pages': result['cant_pages'],
-            'author_id': result['author_id'],
-            'created_at': result['created_at']
-        }
-        return jsonify({'book': book}), 201
+        return jsonify({'book': result}), 201
     except Exception as error:
         print('Error', error)
         return jsonify({'message': 'Internal server error'}), 500
